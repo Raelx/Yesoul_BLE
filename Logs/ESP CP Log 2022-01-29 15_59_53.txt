@@ -1,0 +1,73 @@
+nRF Connect, 2022-01-29
+ESP32_Yesoul (78:21:84:80:15:D6)
+I	15:59:26.333	[Server] Server started
+V	15:59:26.333	[Server] No services
+V	15:59:26.510	Connecting to 78:21:84:80:15:D6...
+D	15:59:26.510	gatt = device.connectGatt(autoConnect = false, TRANSPORT_LE, preferred PHY = LE 1M)
+D	15:59:26.648	[Callback] Connection state changed with status: 0 and new state: CONNECTED (2)
+I	15:59:26.648	Connected to 78:21:84:80:15:D6
+V	15:59:26.654	Discovering services...
+D	15:59:26.654	gatt.discoverServices()
+D	15:59:26.671	[Broadcast] Action received: android.bluetooth.device.action.ACL_CONNECTED
+I	15:59:27.063	Connection parameters updated (interval: 7.5ms, latency: 0, timeout: 5000ms)
+D	15:59:27.200	[Callback] Services discovered with status: 0
+I	15:59:27.200	Services discovered
+V	15:59:27.226	Generic Attribute (0x1801)
+- Service Changed [I] (0x2A05)
+   Client Characteristic Configuration (0x2902)
+Generic Access (0x1800)
+- Device Name [R] (0x2A00)
+- Appearance [R] (0x2A01)
+- Central Address Resolution [R] (0x2AA6)
+Cycling Power (0x1818)
+- Cycling Power Feature [R] (0x2A65)
+- Cycling Power Measurement [N R] (0x2A63)
+- Sensor Location [R] (0x2A5D)
+D	15:59:27.236	gatt.setCharacteristicNotification(00002a05-0000-1000-8000-00805f9b34fb, true)
+I	15:59:27.296	Connection parameters updated (interval: 30.0ms, latency: 0, timeout: 5000ms)
+V	15:59:35.665	Reading all characteristics...
+V	15:59:35.665	Reading characteristic 00002a00-0000-1000-8000-00805f9b34fb
+D	15:59:35.665	gatt.readCharacteristic(00002a00-0000-1000-8000-00805f9b34fb)
+I	15:59:35.727	Read Response received from 00002a00-0000-1000-8000-00805f9b34fb, value: (0x) 45-53-50-33-32-5F-59-65-73-6F-75-6C, "ESP32_Yesoul"
+A	15:59:35.727	"ESP32_Yesoul" received
+V	15:59:35.731	Reading characteristic 00002a01-0000-1000-8000-00805f9b34fb
+D	15:59:35.731	gatt.readCharacteristic(00002a01-0000-1000-8000-00805f9b34fb)
+I	15:59:35.786	Read Response received from 00002a01-0000-1000-8000-00805f9b34fb, value: (0x) 00-00
+A	15:59:35.786	"[0] Unknown" received
+V	15:59:35.787	Reading characteristic 00002aa6-0000-1000-8000-00805f9b34fb
+D	15:59:35.787	gatt.readCharacteristic(00002aa6-0000-1000-8000-00805f9b34fb)
+I	15:59:35.847	Read Response received from 00002aa6-0000-1000-8000-00805f9b34fb, value: (0x) 00
+A	15:59:35.847	"Address resolution not supported" received
+V	15:59:35.851	Reading characteristic 00002a65-0000-1000-8000-00805f9b34fb
+D	15:59:35.851	gatt.readCharacteristic(00002a65-0000-1000-8000-00805f9b34fb)
+I	15:59:35.906	Read Response received from 00002a65-0000-1000-8000-00805f9b34fb, value: (0x) 00-00-00-08
+A	15:59:35.906	"(0x) 00-00-00-08" received
+V	15:59:35.907	Reading characteristic 00002a63-0000-1000-8000-00805f9b34fb
+D	15:59:35.907	gatt.readCharacteristic(00002a63-0000-1000-8000-00805f9b34fb)
+I	15:59:35.966	Read Response received from 00002a63-0000-1000-8000-00805f9b34fb, value: (0x) 20-00-09-00-09-00-00-24
+A	15:59:35.966	"(0x) 20-00-09-00-09-00-00-24" received
+V	15:59:35.971	Reading characteristic 00002a5d-0000-1000-8000-00805f9b34fb
+D	15:59:35.971	gatt.readCharacteristic(00002a5d-0000-1000-8000-00805f9b34fb)
+I	15:59:36.026	Read Response received from 00002a5d-0000-1000-8000-00805f9b34fb, value: (0x) 0D
+A	15:59:36.026	"Rear Hub" received
+V	15:59:36.031	6 characteristics read
+V	15:59:44.970	Reading characteristic 00002a63-0000-1000-8000-00805f9b34fb
+D	15:59:44.970	gatt.readCharacteristic(00002a63-0000-1000-8000-00805f9b34fb)
+I	15:59:45.027	Read Response received from 00002a63-0000-1000-8000-00805f9b34fb, value: (0x) 20-00-12-00-12-00-00-48
+A	15:59:45.027	"(0x) 20-00-12-00-12-00-00-48" received
+V	15:59:45.770	Reading characteristic 00002a63-0000-1000-8000-00805f9b34fb
+D	15:59:45.770	gatt.readCharacteristic(00002a63-0000-1000-8000-00805f9b34fb)
+I	15:59:45.807	Read Response received from 00002a63-0000-1000-8000-00805f9b34fb, value: (0x) 20-00-13-00-13-00-00-4C
+A	15:59:45.807	"(0x) 20-00-13-00-13-00-00-4C" received
+V	15:59:46.453	Reading characteristic 00002a63-0000-1000-8000-00805f9b34fb
+D	15:59:46.453	gatt.readCharacteristic(00002a63-0000-1000-8000-00805f9b34fb)
+I	15:59:46.497	Read Response received from 00002a63-0000-1000-8000-00805f9b34fb, value: (0x) 20-00-13-00-13-00-00-4C
+A	15:59:46.497	"(0x) 20-00-13-00-13-00-00-4C" received
+V	15:59:47.755	Reading characteristic 00002a63-0000-1000-8000-00805f9b34fb
+D	15:59:47.755	gatt.readCharacteristic(00002a63-0000-1000-8000-00805f9b34fb)
+I	15:59:47.816	Read Response received from 00002a63-0000-1000-8000-00805f9b34fb, value: (0x) 20-00-15-00-15-00-00-54
+A	15:59:47.816	"(0x) 20-00-15-00-15-00-00-54" received
+V	15:59:48.434	Reading characteristic 00002a63-0000-1000-8000-00805f9b34fb
+D	15:59:48.434	gatt.readCharacteristic(00002a63-0000-1000-8000-00805f9b34fb)
+I	15:59:48.476	Read Response received from 00002a63-0000-1000-8000-00805f9b34fb, value: (0x) 20-00-15-00-15-00-00-54
+A	15:59:48.476	"(0x) 20-00-15-00-15-00-00-54" received

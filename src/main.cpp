@@ -163,9 +163,8 @@ static void notifyCallback(
 {
   powerInstantaneous = pData[11] | pData[12] << 8;       // 2 bytes of power
   cadenceInstantaneous = (pData[4] | pData[5] << 8) / 2; // 2 bytes of power in 0.5 resolution RPM, convert to RPM
-  resistance = pData[9];                    // 1 byte of resitance
-  Serial.printf("Power = %d | Cadance = %d | Resistance = %d", powerInstantaneous, cadenceInstantaneous, resistance);
-  Serial.println("");
+  resistance = pData[9];                                 // 1 byte of resitance
+  Serial.printf("Power = %d | Cadance = %d | Resistance = %d\n", powerInstantaneous, cadenceInstantaneous, resistance);
 }
 
 /**  None of these are required as they will be handled by the library with defaults. **
@@ -385,20 +384,16 @@ void loop()
   }
 
   // convert RPM to timestamp
-
-  if (cadenceInstantaneous != 0 && (millis() - lastRevolution) >= (lastRevolution + (60000 / cadenceInstantaneous))) 
+// Serial.println((unsigned short)(((millis() / 1000) * 1024)));
+  if (cadenceInstantaneous != 0 && (millis()) >= (lastRevolution + (60000 / cadenceInstantaneous)))
   {
-    revolutions++;//A crank revolution should have passed, add one revolution
-    timestamp = ((millis() / 1000) * 1024 ) % 65536; // create timestamp and format
-    Serial.printf("rev time up: revs = %d | time = %d", revolutions, timestamp);
-    Serial.println();
+    revolutions++;                                  //A crank revolution should have passed, add one revolution
+    timestamp = (unsigned short)(((millis() * 1024) / 1000) % 65536); // create timestamp and format
     lastRevolution = millis();
   }
 
   if (millis() - lastNotify >= 1000) // do this every second
   {
-    Serial.println(lastRevolution + cadenceInstantaneous * 17);
-    timestamp = timestamp + 0;                             // for 60RPM add 1024
     if (pServer->getConnectedCount() > 0)
     {
       bleBuffer[0] = flags & 0xff;
@@ -409,7 +404,16 @@ void loop()
       bleBuffer[5] = (revolutions >> 8) & 0xff;
       bleBuffer[6] = timestamp & 0xff;
       bleBuffer[7] = (timestamp >> 8) & 0xff;
-
+      Serial.printf("pw: %d | buf 2-3 | ", powerInstantaneous);
+      Serial.print(bleBuffer[2]);
+      Serial.print(" - ");
+      Serial.print(bleBuffer[3]);
+      Serial.println("");
+      Serial.printf("ts: %d | buf 6-7 | ", timestamp);
+      Serial.print(bleBuffer[6]);
+      Serial.print(" - ");
+      Serial.print(bleBuffer[7]);
+      Serial.println("");
       CyclingPowerMeasurement->setValue(bleBuffer, 8);
       CyclingPowerMeasurement->notify();
       lastNotify = millis();

@@ -384,7 +384,6 @@ void loop()
   }
 
   // convert RPM to timestamp
-// Serial.println((unsigned short)(((millis() / 1000) * 1024)));
   if (cadenceInstantaneous != 0 && (millis()) >= (lastRevolution + (60000 / cadenceInstantaneous)))
   {
     revolutions++;                                  //A crank revolution should have passed, add one revolution
@@ -404,16 +403,6 @@ void loop()
       bleBuffer[5] = (revolutions >> 8) & 0xff;
       bleBuffer[6] = timestamp & 0xff;
       bleBuffer[7] = (timestamp >> 8) & 0xff;
-      Serial.printf("pw: %d | buf 2-3 | ", powerInstantaneous);
-      Serial.print(bleBuffer[2]);
-      Serial.print(" - ");
-      Serial.print(bleBuffer[3]);
-      Serial.println("");
-      Serial.printf("ts: %d | buf 6-7 | ", timestamp);
-      Serial.print(bleBuffer[6]);
-      Serial.print(" - ");
-      Serial.print(bleBuffer[7]);
-      Serial.println("");
       CyclingPowerMeasurement->setValue(bleBuffer, 8);
       CyclingPowerMeasurement->notify();
       lastNotify = millis();

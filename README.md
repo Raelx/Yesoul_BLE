@@ -1,13 +1,11 @@
 # Yesoul_BLE
 
-Still a work in progress
-
 # Summary
 This project uses an ESP32 board to receive data from a Yesoul S3 spin bike and rebroadcast it in a format that works with a Garmin Edge cycle computer or Garmin Watch that supports BLE sensors.
 
 # Required Libraries
-* 
-* 
+* [NimBLE-Arduino](https://github.com/h2zero/NimBLE-Arduino)
+* Arduino
 
 # Hardware
 * ESP32 board of some type, no headers needed

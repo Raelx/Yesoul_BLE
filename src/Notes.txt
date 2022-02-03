@@ -1,7 +1,0 @@
-Notes
-
-Data locations in Fitness Machine Charactaristic
-*** Byte Locatoin zero indexed ***
-Resistance Byte 7 on nRF, byte 9 in ESP diff possible from nRF removing 3 byts of flags
-Power Byte 9-1/11-12 is two bytes order is reversed
-cadance 2-3/4-5 units are 0.5RPM so 60RPM is 120 dec as encoded assume is two bytes order is reversed

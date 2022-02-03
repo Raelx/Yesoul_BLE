@@ -1,26 +1,22 @@
-#include <Arduino.h>
-
 /** NimBLE_Server Demo:
  *
-This is working to broadcast Power and Cadance under the Cycling Power Service Profile
+This is working to broadcast Power and Cadence under the Cycling Power Service Profile
 Data tested against Edge and Phone
  * 
 */
-
+#include <Arduino.h>
 #include <NimBLEDevice.h>
 
 short powerInstantaneous = 0;
 short cadenceInstantaneous = 0;
 short speedInstantaneous = 0;
-short resistance = 0;
+short resistance = 0; //Not currently doing anything with this value after receiving it
 bool notify = false;
 
-// Define stuff for the Client that will recive data from Fitness Machine
+// Define stuff for the Client that will receive data from Fitness Machine
 // The remote service we wish to connect to.
-// static BLEUUID serviceUUID("180d"); // HRM 0x1826
-static BLEUUID serviceUUID("1826"); // Fittness Machine
+static BLEUUID serviceUUID("1826"); // Fitness Machine
 // The characteristic of the remote service we are interested in.
-// static BLEUUID charUUID("2a37"); // HR Measurment
 static BLEUUID charUUID("2ad2"); // Indoor Bike (Fitness Machien)
 
 static boolean doConnect = false;
@@ -163,8 +159,8 @@ static void notifyCallback(
 {
   powerInstantaneous = pData[11] | pData[12] << 8;       // 2 bytes of power
   cadenceInstantaneous = (pData[4] | pData[5] << 8) / 2; // 2 bytes of power in 0.5 resolution RPM, convert to RPM
-  resistance = pData[9];                                 // 1 byte of resitance
-  Serial.printf("Power = %d | Cadance = %d | Resistance = %d\n", powerInstantaneous, cadenceInstantaneous, resistance);
+  resistance = pData[9];                                 // 1 byte of resistance
+  Serial.printf("Power = %d | Cadence = %d | Resistance = %d\n", powerInstantaneous, cadenceInstantaneous, resistance);
 }
 
 /**  None of these are required as they will be handled by the library with defaults. **
@@ -380,13 +376,13 @@ void loop()
   }
   else if (doScan)
   {
-    BLEDevice::getScan()->start(0); // this is just eample to start scan after disconnect, most likely there is better way to do it in arduino
+    BLEDevice::getScan()->start(0); // this is just sample to start scan after disconnect, most likely there is better way to do it in arduino
   }
 
   // convert RPM to timestamp
   if (cadenceInstantaneous != 0 && (millis()) >= (lastRevolution + (60000 / cadenceInstantaneous)))
   {
-    revolutions++;                                  //A crank revolution should have passed, add one revolution
+    revolutions++;                                  // One crank revolution should have passed, add one revolution
     timestamp = (unsigned short)(((millis() * 1024) / 1000) % 65536); // create timestamp and format
     lastRevolution = millis();
   }

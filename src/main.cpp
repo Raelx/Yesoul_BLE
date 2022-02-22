@@ -10,6 +10,7 @@ Data tested against Edge and Phone
 short powerInstantaneous = 0;
 short cadenceInstantaneous = 0;
 short speedInstantaneous = 0;
+float powerScale = 1.28; // incoming power is multiplied by this value for correction
 short resistance = 0; //Not currently doing anything with this value after receiving it
 bool notify = false;
 
@@ -17,7 +18,7 @@ bool notify = false;
 // The remote service we wish to connect to.
 static BLEUUID serviceUUID("1826"); // Fitness Machine
 // The characteristic of the remote service we are interested in.
-static BLEUUID charUUID("2ad2"); // Indoor Bike (Fitness Machien)
+static BLEUUID charUUID("2ad2"); // Indoor Bike (Fitness Machine)
 
 static boolean doConnect = false;
 static boolean connected = false;
@@ -115,7 +116,7 @@ class CharacteristicCallbacks : public NimBLECharacteristicCallbacks
     }
     else if (subValue == 1)
     {
-      str += " Subscribed to notfications for ";
+      str += " Subscribed to notifications for ";
     }
     else if (subValue == 2)
     {
@@ -150,7 +151,7 @@ class DescriptorCallbacks : public NimBLEDescriptorCallbacks
 /* 
  * Client Stuff
  */
-// This callback is for when data is recived from Server
+// This callback is for when data is received from Server
 static void notifyCallback(
     BLERemoteCharacteristic *pBLERemoteCharacteristic,
     uint8_t *pData,
@@ -158,6 +159,8 @@ static void notifyCallback(
     bool isNotify)
 {
   powerInstantaneous = pData[11] | pData[12] << 8;       // 2 bytes of power
+  Serial.printf("Power = %d\n", powerInstantaneous);
+  powerInstantaneous = powerInstantaneous * powerScale;  //power value correction
   cadenceInstantaneous = (pData[4] | pData[5] << 8) / 2; // 2 bytes of power in 0.5 resolution RPM, convert to RPM
   resistance = pData[9];                                 // 1 byte of resistance
   Serial.printf("Power = %d | Cadence = %d | Resistance = %d\n", powerInstantaneous, cadenceInstantaneous, resistance);
